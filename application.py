@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, Response, url_for
+from flask import Flask, render_template, request, Response, url_for, flash, redirect
 #Custom flask forms imported for html conversion
 from forms import RegistrationForm, LoginForm
 
@@ -34,14 +34,20 @@ def index():
 def home():
     return render_template('home.html', posts=posts, title="Image Viewer")
 
-@app.route('/registeration')
+@app.route('/registration', methods=['POST','GET'])
 def registration():
     #Create instance of form
     registration_form = RegistrationForm()
+    if request.method == "POST":
+        if registration_form.validate_on_submit() == True:
+            flash("Succesfully created account for " + str(registration_form.username.data), "success")
+            return redirect(url_for('home'))
+
+    #Return get request
     return render_template("registration.html", title="Registration", form=registration_form)
 
 @app.route('/login')
-def registration():
+def login():
     #Create instance of form
     login_form = LoginForm()
     return render_template("registration.html", title="Login", form=login_form)
