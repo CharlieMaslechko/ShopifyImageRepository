@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, Response, url_for, flash, redirect
+import os
 #Custom flask forms imported for html conversion
 from forms import RegistrationForm, LoginForm
 
@@ -25,6 +26,8 @@ posts = [
     }
 ]
 
+imageFolder = os.path.join("static", "imagedata")
+app.config['UPLOAD_FOLDER'] = imageFolder
 
 @app.route('/')
 def index():
@@ -41,15 +44,29 @@ def registration():
     if request.method == "POST":
         if registration_form.validate_on_submit() == True:
             flash("Succesfully created account for " + str(registration_form.username.data), "success")
-            return redirect(url_for('home'))
+            return redirect(url_for("home"))
 
-    #Return get request
+    #Return GET request
     return render_template("registration.html", title="Registration", form=registration_form)
 
-@app.route('/login')
+@app.route('/login', methods=['POST','GET'])
 def login():
+    logo = os.path.join(app.config['UPLOAD_FOLDER'], "ImageRepoLogin.png")
     #Create instance of form
     login_form = LoginForm()
-    return render_template("registration.html", title="Login", form=login_form)
+    if request.method == "POST":
+        if login_form.validate_on_submit() == True:
+            if login_form.email.data == "admin@test.com" and login_form.password.data == "pass":
+                flash("You have been succesfully logged in!", "success")
+                return redirect(url_for("home"))
+            else:
+                flash("Failed login attempt. Please make sure username and password are correct", "danger")
+
+    #return GET request
+    return render_template("login.html", title="Login", form=login_form, image=logo)
+
+
+
+
 
 

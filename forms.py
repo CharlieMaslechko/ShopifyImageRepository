@@ -21,9 +21,11 @@ class RegistrationForm(FlaskForm):
 #Form used when a user wants to login with an existing account
 class LoginForm(FlaskForm):
     email = StringField("Email", validators=[DataRequired(), Email()])
-    password = StringField("Password", validators=[DataRequired()])
+    password = PasswordField("Password", validators=[DataRequired()])
     #Use cookie to store
     remember = BooleanField("Remember me next time")
+    submit = SubmitField("Login")
+
 
 
 
