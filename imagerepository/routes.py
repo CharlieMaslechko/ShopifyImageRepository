@@ -1,5 +1,5 @@
 from flask import render_template, request, Response, url_for, flash, redirect
-from imagerepository import app
+from imagerepository import app, bcrypt, db
 from imagerepository.models import User, Post
 #Custom flask forms imported for html conversion
 from imagerepository.forms import RegistrationForm, LoginForm
@@ -37,8 +37,15 @@ def registration():
     registration_form = RegistrationForm()
     if request.method == "POST":
         if registration_form.validate_on_submit() == True:
+            #generate hashed password
+            password_hash = bcrypt.generate_password_hash(registration_form.password.data)
+            #create new user model
+            new_user = User(username=registration_form.username.data, email=registration_form.email.data, password=password_hash)
+            db.session.add(new_user)
+            db.session.commit()
+
             flash("Succesfully created account for " + str(registration_form.username.data), "success")
-            return redirect(url_for("home"))
+            return redirect(url_for("login"))
 
     #Return GET request
     return render_template("registration.html", title="Registration", form=registration_form)

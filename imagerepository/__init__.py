@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 import os
+from flask_bcrypt import Bcrypt
 
 app = Flask(__name__, template_folder='htmltemplates')
 
@@ -15,6 +16,8 @@ app.config['UPLOAD_FOLDER'] = imageFolder
 
 #create database
 db = SQLAlchemy(app)
+
+bcrypt = Bcrypt(app)
 
 #routes.py is importing app variable import at EOF to avoid circular import
 from imagerepository import routes

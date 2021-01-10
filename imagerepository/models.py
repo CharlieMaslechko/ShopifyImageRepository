@@ -18,9 +18,7 @@ class User(db.Model):
 
     #User object print formatting
     def __repr__(self):
-        format = "username: " + str(self.username) + "\n"+\
-                 "email: " + str(self.email) + "\n"+\
-                 "profile picture: " + str(self.image_file)
+        format = "User (username: " + str(self.username) + ", email: " + str(self.email) + ", profile picture: " + str(self.image_file) + ")"
         return format
 
 #Post table
@@ -36,6 +34,5 @@ class Post(db.Model):
 
     #Post object print formatting
     def __repr__(self):
-        format = "title: " + str(self.title) + "\n"+\
-                 "date: " + str(self.date_posted)
+        format = "Post (title: " + str(self.title) + ", date: " + str(self.date_posted)
         return format
