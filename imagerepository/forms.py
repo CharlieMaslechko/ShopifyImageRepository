@@ -1,6 +1,8 @@
 from flask_wtf import FlaskForm
 from wtforms import BooleanField, StringField, SubmitField, PasswordField
-from wtforms.validators import DataRequired, Length, Email, EqualTo
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
+from imagerepository import db
+from imagerepository.models import User
 
 
 #Form used when a user wants to sign up to the shopify image repo
@@ -17,6 +19,18 @@ class RegistrationForm(FlaskForm):
     confirm_password = PasswordField("Confirm Password", validators=[DataRequired(), EqualTo('password')])
 
     submit = SubmitField("Sign up!")
+
+    #Validate username is not taken
+    def validate_username(self, username):
+        check_user = User.query.filter_by(username=username.data).first()
+        if check_user:
+            raise ValidationError("That username has already been taken. Please choose a different username")
+
+    #validate email is not taken
+    def validate_email(self, email):
+        check_user = User.query.filter_by(email=email.data).first()
+        if check_user:
+            raise ValidationError("That email already has an account registered. Please select a different email")
 
 #Form used when a user wants to login with an existing account
 class LoginForm(FlaskForm):
