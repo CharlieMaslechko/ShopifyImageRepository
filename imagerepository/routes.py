@@ -3,6 +3,7 @@ from imagerepository import app, bcrypt, db
 from imagerepository.models import User, Post
 #Custom flask forms imported for html conversion
 from imagerepository.forms import RegistrationForm, LoginForm
+from flask_login import login_user, current_user, logout_user
 import os
 
 posts = [
@@ -33,6 +34,9 @@ def home():
 
 @app.route('/registration', methods=['POST','GET'])
 def registration():
+    #If user already logged in redirect to homepage
+    if current_user.is_authenticated:
+        return redirect(url_for("home"))
     #Create instance of form
     registration_form = RegistrationForm()
     if request.method == "POST":
@@ -52,16 +56,26 @@ def registration():
 
 @app.route('/login', methods=['POST','GET'])
 def login():
+    #If user already logged in redirect to homepage
+    if current_user.is_authenticated:
+        return redirect(url_for("home"))
     logo = os.path.join(app.config['UPLOAD_FOLDER'], "ImageRepoLogin.png")
     #Create instance of form
     login_form = LoginForm()
     if request.method == "POST":
         if login_form.validate_on_submit() == True:
-            if login_form.email.data == "admin@test.com" and login_form.password.data == "pass":
-                flash("You have been succesfully logged in!", "success")
+            check_user = User.query.filter_by(email=login_form.email.data).first()
+            if check_user and bcrypt.check_password_hash(check_user.password, login_form.password.data):
+                login_user(check_user, remember=login_form.remember.data)
                 return redirect(url_for("home"))
             else:
                 flash("Failed login attempt. Please make sure username and password are correct", "danger")
 
     #return GET request
     return render_template("login.html", title="Login", form=login_form, image=logo)
+
+@app.route("/logout")
+def logout():
+    flash(str(current_user.username) + " has been logged out", "success")
+    logout_user()
+    return redirect((url_for("login")))
