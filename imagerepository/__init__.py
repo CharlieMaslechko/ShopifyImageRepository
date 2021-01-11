@@ -19,5 +19,8 @@ db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
 
+#login required routing when excercising @login_required decorator
+login_manager.login_view = 'login'
+
 #routes.py is importing app variable import at EOF to avoid circular import
 from imagerepository import routes

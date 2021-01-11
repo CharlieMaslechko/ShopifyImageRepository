@@ -3,7 +3,7 @@ from imagerepository import app, bcrypt, db
 from imagerepository.models import User, Post
 #Custom flask forms imported for html conversion
 from imagerepository.forms import RegistrationForm, LoginForm
-from flask_login import login_user, current_user, logout_user
+from flask_login import login_user, current_user, logout_user, login_required
 import os
 
 posts = [
@@ -79,3 +79,11 @@ def logout():
     flash(str(current_user.username) + " has been logged out", "success")
     logout_user()
     return redirect((url_for("login")))
+
+@app.route("/account")
+#Requires login to access route
+@login_required
+def account():
+    path = "imagedata/profilepictures/" + current_user.image_file
+    profile_pic = url_for('static', filename=path)
+    return render_template('account.html', title="Account", profile_picture=profile_pic)
