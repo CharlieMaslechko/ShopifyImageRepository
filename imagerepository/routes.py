@@ -1,5 +1,3 @@
-import secrets
-
 from flask import render_template, request, Response, url_for, flash, redirect
 from imagerepository import app, bcrypt, db
 from imagerepository.models import User, Post
@@ -7,7 +5,8 @@ from imagerepository.models import User, Post
 from imagerepository.forms import RegistrationForm, LoginForm, AccountUpdateForm
 from flask_login import login_user, current_user, logout_user, login_required
 import os
-from secrets import token_hex
+import secrets
+from PIL import Image
 
 posts = [
     #Example 1
@@ -93,7 +92,14 @@ def save_picture(form_picture):
     picture_file_name = generate_random + file_extension
     #obtain path to folder
     profile_picture_path = os.path.join(app.root_path, "static/imagedata/profilepictures", picture_file_name)
-    form_picture.save(profile_picture_path)
+
+    #Resize
+    output_image_size = (125, 125)
+    image = Image.open(form_picture)
+    image.thumbnail(output_image_size)
+
+    #Save resized
+    image.save(profile_picture_path)
 
     return picture_file_name
 
