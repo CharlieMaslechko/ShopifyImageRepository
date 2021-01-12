@@ -6,6 +6,7 @@ from flask_login import LoginManager
 
 app = Flask(__name__, template_folder='htmltemplates')
 
+
 imageFolder = os.path.join("static", "imagedata")
 
 #Create a secret key

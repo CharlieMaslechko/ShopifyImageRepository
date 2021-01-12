@@ -1,14 +1,15 @@
 from flask_wtf import FlaskForm
+from flask_wtf.file import FileField, FileAllowed
 from wtforms import BooleanField, StringField, SubmitField, PasswordField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from imagerepository import db
 from imagerepository.models import User
+from flask_login import current_user
 
 
 #Form used when a user wants to sign up to the shopify image repo
 class RegistrationForm(FlaskForm):
 
-    #Username is field in HTML
     #Username restrictions: Must be non empty between 3 and 15 characters
     username = StringField("Username", validators=[DataRequired(), Length(min=3, max=15)])
     #Email restrictions: Must be non empty and valid email
@@ -31,6 +32,34 @@ class RegistrationForm(FlaskForm):
         check_user = User.query.filter_by(email=email.data).first()
         if check_user:
             raise ValidationError("That email already has an account registered. Please select a different email")
+
+#Form used when a user wants to sign up to the shopify image repo
+class AccountUpdateForm(FlaskForm):
+
+    #Username restrictions: Must be non empty between 3 and 15 characters
+    username = StringField("Username", validators=[DataRequired(), Length(min=3, max=15)])
+    #Email restrictions: Must be non empty and valid email
+    email = StringField("Email", validators=[DataRequired(), Email()])
+    #Profile picture restrictions: Must be png or jpg
+    profile_picture = FileField("Update Profile Picture", validators=[FileAllowed(["png", "jpeg"])])
+    submit = SubmitField("Update account")
+
+    #Validate username is not taken
+    def validate_username(self, username):
+        #Perform check only if changed
+        if current_user.username != username.data:
+            check_user = User.query.filter_by(username=username.data).first()
+            if check_user:
+                raise ValidationError("That username has already been taken. Please choose a different username")
+
+    #validate email is not taken
+    def validate_email(self, email):
+        #perform check only if changed
+        if current_user.email != email.data:
+            check_user = User.query.filter_by(email=email.data).first()
+            if check_user:
+                raise ValidationError("That email already has an account registered. Please select a different email")
+
 
 #Form used when a user wants to login with an existing account
 class LoginForm(FlaskForm):
