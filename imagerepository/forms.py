@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
-from wtforms import BooleanField, StringField, SubmitField, PasswordField
+from wtforms import BooleanField, StringField, SubmitField, PasswordField, TextAreaField, MultipleFileField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from imagerepository import db
 from imagerepository.models import User
@@ -68,6 +68,15 @@ class LoginForm(FlaskForm):
     #Use cookie to store
     remember = BooleanField("Remember me next time")
     submit = SubmitField("Login")
+
+
+class NewPostForm(FlaskForm):
+    title = StringField("Title", validators=[DataRequired()])
+    images = MultipleFileField("Upload Photo", validators=[FileAllowed(["png", "jpeg"])])
+    description = TextAreaField("Photo Description", validators=[DataRequired()])
+    public_private = BooleanField("Private")
+    submit = SubmitField("Post")
+
 
 
 

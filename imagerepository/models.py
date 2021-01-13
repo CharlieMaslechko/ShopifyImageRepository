@@ -36,7 +36,23 @@ class Post(db.Model):
     #id in user model acts as foreign key in post model
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
 
+    #Lazy will load all photos from single post in one go
+    photos = db.relationship("Photo", backref="parent", lazy=True)
+
     #Post object print formatting
     def __repr__(self):
         format = "Post (title: " + str(self.title) + ", date: " + str(self.date_posted)
+        return format
+
+#Photo table linked to post one post can have many photos
+class Photo(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    image_file = db.Column(db.String(20), nullable=False)
+    photo_order = db.Column(db.Integer, nullable=False)
+
+    #post id in post model acts as foreign key in photo model
+    post_id = db.Column(db.Integer, db.ForeignKey("post.id"), nullable=False)
+
+    def __repr__(self):
+        format = "Photo (post photo: " + self.image_file + ")"
         return format
