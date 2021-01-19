@@ -78,3 +78,44 @@ a.article-title:hover {
 .account-heading {
   font-size: 2.5rem;
 }
+
+.tales {
+  width: 100%;
+}
+
+
+.item{
+  text-align:center;
+}
+
+.carousel-item.active{
+  width: auto;
+  height: 225px;
+  max-height: 225px;
+}
+
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  height: 225px;
+  width: 100px;
+  outline: black;
+  background-size: 100%, 100%;
+  border: 1px solid black;
+  background-image: none;
+}
+
+.carousel-control-next-icon:after
+{
+  content: '>';
+  font-size: 55px;
+  color: red;
+  margin: auto
+}
+
+.carousel-control-prev-icon:after {
+  content: '<';
+  font-size: 55px;
+  color: red;
+}
+

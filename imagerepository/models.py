@@ -18,7 +18,7 @@ class User(db.Model, UserMixin):
     image_file = db.Column(db.String(20), nullable=False, default="default.jpg")
 
     #Lazy will load all posts from single user in one go
-    posts = db.relationship("Post", backref="author", lazy=True)
+    photos = db.relationship("Post", backref="author", lazy=True)
 
     #User object print formatting
     def __repr__(self):
@@ -32,8 +32,10 @@ class Post(db.Model):
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     content = db.Column(db.Text, nullable=False)
     is_private = db.Column(db.Boolean, nullable=False)
+    tag = db.Column(db.String, nullable=True)
+    photos_contained = db.Column(db.String, nullable=False)
 
-    #id in user model acts as foreign key in post model
+    #id in user model acts as foreign key in Post model
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
 
     #Lazy will load all photos from single post in one go
@@ -56,3 +58,4 @@ class Photo(db.Model):
     def __repr__(self):
         format = "Photo (post photo: " + self.image_file + ")"
         return format
+

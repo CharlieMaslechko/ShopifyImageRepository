@@ -8,22 +8,10 @@ import os
 import secrets
 from PIL import Image
 
-posts = [
-    #Example 1
-    {
-        "author": "Jane Doe",
-        "title": "Blog post 1",
-        "content": "First post content",
-        "date_posted": "April, 21, 2020"
-    },
-    #Example 2
-    {
-        "author": "Mark Smith",
-        "title": "Blog post 2",
-        "content": "Second post content",
-        "date_posted": "April, 21, 2021"
-    }
-]
+
+tags = ["Nature", "Family", "Business", "Travel", "Adventure", "Education", "Art", "Food"]
+
+
 
 @app.route('/')
 def index():
@@ -31,7 +19,25 @@ def index():
 
 @app.route('/home')
 def home():
-    return render_template('home.html', posts=posts, title="Image Viewer")
+    #get all public posts
+    posts = Post.query.filter(Post.is_private == 0).all()
+
+    #each public post has a list of images
+    photos = []
+    for single_post in posts:
+        photos.append(Photo.query.filter(Photo.post_id == single_post.id).all())
+
+    master_list = list()
+    for post_set in photos:
+        temp_list = list()
+        for single_image in post_set:
+            path = "imagedata/postphotos/" + single_image.image_file
+            picture_path = url_for('static', filename=path)
+            temp_list.append(picture_path)
+        master_list.append(temp_list)
+
+
+    return render_template('home.html', posts=posts, photos=master_list, title="Image Viewer")
 
 @app.route('/registration', methods=['POST','GET'])
 def registration():
@@ -86,6 +92,34 @@ def logout():
 def about():
     return render_template("about.html", title="About")
 
+@login_required
+@app.route("/privatelibrary")
+def privatelibrary():
+    default = os.path.join(app.config['UPLOAD_FOLDER'], "250x250.png")
+    logo = os.path.join(app.config['UPLOAD_FOLDER'], "PrivateImageRepoLogo.png")
+
+    tags_set = set()
+
+
+    #get all the posts that user has posted
+    posts = Post.query.filter(Post.is_private == 1, Post.user_id == current_user.id).all()
+
+    tag_and_photo = []
+    for i in range(len(posts)):
+        current_post = posts[i]
+        current_tag = current_post.tag
+        tags_set.add(current_tag)
+
+        #private_photos contains a list of lists where each list contains a set of photos pertaining to that post
+        photos_to_post = Photo.query.filter(Photo.post_id == current_post.id).all()
+        for photo in photos_to_post:
+            path = "imagedata/postphotos/" + photo.image_file
+            picture_path = url_for("static", filename=path)
+            tag_and_photo.append((picture_path, current_tag, photo.photo_order, current_post.photos_contained, current_post.title, current_post.id, current_post.date_posted))
+
+    print(tags_set)
+    return render_template("private.html", title="Private", defaultpic=default, logo=logo, photo_tag=tag_and_photo, tags_set=tags_set)
+
 
 
 #helper function for saving picture returns file name
@@ -113,10 +147,18 @@ def save_picture(form_picture, type):
     if type == "post":
         #obtain path to folder
         post_picture_path = os.path.join(app.root_path, "static/imagedata/postphotos", picture_file_name)
+
+        #Resize
+        output_image_size = (128, 128)
         image = Image.open(form_picture)
+        image.thumbnail(output_image_size)
+
+        #Save resized
         image.save(post_picture_path)
+        print("IMAGE SIZE: " + str(image.size))
 
     return picture_file_name
+
 
 @app.route("/account", methods=["POST", "GET"])
 #Requires login to access route
@@ -149,14 +191,15 @@ def account():
 @login_required
 def new_post():
     new_post_form = NewPostForm()
-    print(request.method)
     if request.method == "POST":
+        print("HII")
         if new_post_form.validate_on_submit():
-            post = Post(title=new_post_form.title.data, content=new_post_form.description.data, is_private=new_post_form.public_private.data, author=current_user)
+
+            post = Post(title=new_post_form.title.data, content=new_post_form.description.data, is_private=new_post_form.public_private.data, tag=new_post_form.photo_tag.data, photos_contained=len(new_post_form.images.data), author=current_user)
             db.session.add(post)
             db.session.commit()
             #add all photos to database commit
-            order_count = 0
+            order_count = 1
             for single_photo in new_post_form.images.data:
                 file_name = save_picture(single_photo, "post")
                 new_image = Photo(image_file=file_name, photo_order=order_count, parent=post)

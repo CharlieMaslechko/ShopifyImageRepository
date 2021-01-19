@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+{% block content %}
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='private_library.css') }}">
+</head>
+<body>
+
+<!-- MAIN (Center website) -->
+<div class="main">
+
+<h1>
+  <img src={{logo}} class="img-fluid" alt="Responsive image">
+</h1>
+<hr>
+
+<div id="buttonContainer">
+  <button class="btn active" onclick="filterSelection('all')"> Show all</button>
+  {% for tag in tags_set %}
+    <button class="btn" onclick="filterSelection('{{tag}}')"> {{tag}}</button>
+  {% endfor %}
+
+</div>
+
+<!-- Portfolio Gallery Grid -->
+<div class="row">
+
+      {% for i in range(photo_tag|length)%}
+      <div class="column {{photo_tag[i][1]}}" id="getinfo", onclick="hi()">
+        <div class="content">
+          <img src="{{photo_tag[i][0]}}" alt="Mountains" style="width:100%">
+          <h4>{{photo_tag[i][4]}}</h4>
+          <p>Number in collection: {{photo_tag[i][2]}}/{{photo_tag[i][3]}}</p>
+          <small> {{photo_tag[i][6].strftime("%Y/%m/%d")}}</small>
+        </div>
+      </div>
+      {% endfor %}
+
+<!-- END GRID -->
+</div>
+
+<!-- END MAIN -->
+</div>
+
+<script src="{{ url_for('static', filename='js/private_library.js') }}"></script>
+
+</body>
+
+{% endblock content %}

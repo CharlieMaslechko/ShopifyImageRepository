@@ -51,6 +51,11 @@
                    {{ form.description(class="form-control form-control-lg") }}
                 {% endif %}
             </div>
+             {{form.photo_tag.label()}}
+            <small> You can select multiple tags to add subject to your photos </small>
+            <div class="form-group">
+                {{form.photo_tag()}}
+            </div>
             <div class="form-check">
                 {{ form.public_private(class="form-check-input") }}
                 {{ form.public_private.label(class="form-check-label") }}
@@ -64,4 +69,5 @@
         </div>
     </form>
 </div>
+
 {% endblock content %}
