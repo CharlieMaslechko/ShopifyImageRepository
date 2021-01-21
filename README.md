@@ -1,13 +1,13 @@
 # ShopifyImageRepository
 This is the technical portion of the application for Summer 2021 backend developer internship position at Shopify!
 
-#Backend
+# Backend
 The backend is powered by Flask and Python
 
-#Frontend
+# Frontend
 The frontend utilises HTML, CSS, JS, and Bootstrap
 
-#Libraries
+# Libraries
 Many libraries were used to make this project come to life
 
 ```python
