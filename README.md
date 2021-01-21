@@ -26,6 +26,10 @@ secrets
 PIL
 ```
 
+#Key Design Decisions
+
+I decided to use python as the primary language for this project for the following reasons: Python is great for building prototypes with it's abundunce of free to use frameworks and libraries, extremely flexible and efficient, performance and scalability were not a primary concern. To power the backend I decided to use Flask apposed to Django this decision was primariliy made on the bias of the developer having prior experience utilising flask however Django offers integrated ORM and data models that would have been sufficient for this project. Furthermore, heading into the project and given the quick iterations and timeline I was constantly making changes to the libraries I was using which favoured flasks flexibility. SQLAlchemy was an easy decision to make since it allows for the simple creation of database tables by creating models similar to that of Django.
+
 ## Usage (Run locally)
 
 #Setup flask
