@@ -44,6 +44,7 @@ def registration():
     #If user already logged in redirect to homepage
     if current_user.is_authenticated:
         return redirect(url_for("home"))
+    logo = os.path.join(app.config['UPLOAD_FOLDER'], "ImageRepoCreation.png")
     #Create instance of form
     registration_form = RegistrationForm()
     if request.method == "POST":
@@ -59,7 +60,7 @@ def registration():
             return redirect(url_for("login"))
 
     #Return GET request
-    return render_template("registration.html", title="Registration", form=registration_form)
+    return render_template("registration.html", title="Registration", form=registration_form, image=logo)
 
 @app.route('/login', methods=['POST','GET'])
 def login():
