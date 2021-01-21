@@ -50,11 +50,11 @@ Create the database
 db.create_all()
 ```
 
-#How can I monitor the database?
+# How can I monitor the database?
 A free and awesome tool can be found [here](https://sqlitebrowser.org/)
 
 
-#To run the application
+# To run the application
 In order to run the web application navigate to the imagerepository package and run
 
 ```bash
