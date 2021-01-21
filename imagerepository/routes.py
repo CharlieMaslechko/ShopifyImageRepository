@@ -93,6 +93,23 @@ def about():
     return render_template("about.html", title="About")
 
 @login_required
+@app.route("/privatelibrary/<post_id>")
+def moreinfo(post_id):
+    print("POSTID")
+    post = Post.query.filter(Post.id==post_id).first()
+    photos_to_post = Photo.query.filter(Photo.post_id == post.id).all()
+
+    photos = []
+    for photo in photos_to_post:
+        path = "imagedata/postphotos/" + photo.image_file
+        picture_path = url_for("static", filename=path)
+        photos.append(picture_path)
+
+    return render_template("moreinfo.html", title="More Info", images=photos, post=post)
+
+
+
+@login_required
 @app.route("/privatelibrary")
 def privatelibrary():
     default = os.path.join(app.config['UPLOAD_FOLDER'], "250x250.png")
@@ -104,7 +121,8 @@ def privatelibrary():
     #get all the posts that user has posted
     posts = Post.query.filter(Post.is_private == 1, Post.user_id == current_user.id).all()
 
-    tag_and_photo = []
+
+    tag_photo_post = []
     for i in range(len(posts)):
         current_post = posts[i]
         current_tag = current_post.tag
@@ -115,10 +133,10 @@ def privatelibrary():
         for photo in photos_to_post:
             path = "imagedata/postphotos/" + photo.image_file
             picture_path = url_for("static", filename=path)
-            tag_and_photo.append((picture_path, current_tag, photo.photo_order, current_post.photos_contained, current_post.title, current_post.id, current_post.date_posted))
+            tag_photo_post.append((picture_path, current_tag, photo, current_post))
 
     print(tags_set)
-    return render_template("private.html", title="Private", defaultpic=default, logo=logo, photo_tag=tag_and_photo, tags_set=tags_set)
+    return render_template("private.html", title="Private", defaultpic=default, logo=logo, data=tag_photo_post, tags_set=tags_set)
 
 
 
@@ -192,7 +210,6 @@ def account():
 def new_post():
     new_post_form = NewPostForm()
     if request.method == "POST":
-        print("HII")
         if new_post_form.validate_on_submit():
 
             post = Post(title=new_post_form.title.data, content=new_post_form.description.data, is_private=new_post_form.public_private.data, tag=new_post_form.photo_tag.data, photos_contained=len(new_post_form.images.data), author=current_user)

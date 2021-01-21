@@ -25,13 +25,13 @@
 <!-- Portfolio Gallery Grid -->
 <div class="row">
 
-      {% for i in range(photo_tag|length)%}
-      <div class="column {{photo_tag[i][1]}}" id="getinfo", onclick="hi()">
+      {% for i in range(data|length)%}
+      <div class="column {{data[i][1]}}" id="getinfo", onclick="moreinfo({{data[i][3].id}})">
         <div class="content">
-          <img src="{{photo_tag[i][0]}}" alt="Mountains" style="width:100%">
-          <h4>{{photo_tag[i][4]}}</h4>
-          <p>Number in collection: {{photo_tag[i][2]}}/{{photo_tag[i][3]}}</p>
-          <small> {{photo_tag[i][6].strftime("%Y/%m/%d")}}</small>
+          <img src="{{data[i][0]}}" alt="Mountains" style="width:100%">
+          <h4>{{data[i][3].title}}</h4>
+          <p>Number in collection: {{data[i][2].photo_order}}/{{data[i][3].photos_contained}}</p>
+            <small> {{data[i][3].date_posted.strftime("%Y/%m/%d")}}</small>
         </div>
       </div>
       {% endfor %}
