@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block content %}
+  <head>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='moreinfo.css') }}">
+  </head>
+
+  <head>
+  <body>
+    <div class="wrapper">
+      <h1>{{post.title}}</h1>
+      <small> Upload date: {{post.date_posted.strftime("%Y/%m/%d")}}</small>
+        <div class="img-area">
+          {% for photo in images %}
+          <div class ="single-img"><img src={{photo}}></div>
+          {% endfor %}
+        </div>
+    </div>
+    <body>
+      {{post.content}}
+    </body>
+
+   </body>
+
+  </head>
+{% endblock content %}

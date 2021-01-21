@@ -167,7 +167,7 @@ def save_picture(form_picture, type):
         post_picture_path = os.path.join(app.root_path, "static/imagedata/postphotos", picture_file_name)
 
         #Resize
-        output_image_size = (128, 128)
+        output_image_size = (250, 250)
         image = Image.open(form_picture)
         image.thumbnail(output_image_size)
 
