@@ -1,4 +1,4 @@
-# ShopifyImageRepository
+# Shopify Image Repository
 This is the technical portion of the application for Summer 2021 backend developer internship position at Shopify!
 
 # Backend
@@ -40,7 +40,7 @@ I decided to use python as the primary language for this project for the followi
 * Checks database to make sure user does not already have an account
 * Flash messages to give user feedback
 
-![](CreateAccountLogin.gif)
+![](./Markdown/CreateAccountLogin.gif)
 
 ## Usage (Run locally)
 
