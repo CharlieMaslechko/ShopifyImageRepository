@@ -43,9 +43,7 @@ for (var i = 0; i < btns.length; i++) {
 }
 
 function moreinfo(post_id) {
-
     url = "/privatelibrary/" + post_id
-    window.alert(url)
     window.location.href = url
 }
 
