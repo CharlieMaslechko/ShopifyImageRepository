@@ -95,15 +95,15 @@ python application.py
 # Project Status
 There are multiple features that I still want to add. Since this project is for a job application the development will likely concluded once the hiring period has ended. I have listed below a rough roadmap of features. The checkboxes indicates the developer's current focus.
 
- - [ ] Profile Viewing
+ - [x] Profile Viewing
   * In the public feed section add the ability for a user to view another individuals profile, their public information, and all their public posts
   * Privacy Settings
     * Add the ability for a user to adjust what is viewable to other users on the network including whether they want their email, photos, profile picture shared
-- [ ] Customizable tags
+- [x] Customizable tags
   * Add the ability for the user to add custom tags to their photos and not be restricted by the presets
 - [ ] Front-end improvements
   * Improve visual of the bulletin board making the photos appear on sticky notes or something more visually appealing and immersive
- - [ ] Forgot password flow
+ - [x] Forgot password flow
   * Add the ability for a user to reset their password via the email that they signed up with in order to prevent being locked out of account
  - [ ] Photo features
   * Add the ability for light photo editing including being able to select a specific 250x250 area the user wants to display
