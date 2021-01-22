@@ -42,6 +42,16 @@ I decided to use python as the primary language for this project for the followi
 
 ![](./Markdown/CreateAccountLogin.gif)
 
+## Uploading Photos to your Private Library
+
+### Features:
+
+* You can use multiple tags to sort your images
+* Clicking on a post brings up a new bulletin board page containing all images in your post
+* Time stamps are stored and displayed back to the user
+
+![](./Markdown/PostAndViewPrivate.gif)
+
 ## Usage (Run locally)
 
 
