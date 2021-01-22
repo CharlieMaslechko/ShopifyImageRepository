@@ -15,9 +15,10 @@ tags = ["Nature", "Family", "Business", "Travel", "Adventure", "Education", "Art
 
 @app.route('/')
 def index():
-    return render_template('home.html')
+    return render_template('about.html')
 
 @app.route('/home')
+@login_required
 def home():
     #get all public posts
     posts = Post.query.filter(Post.is_private == 0).all()
@@ -93,8 +94,8 @@ def logout():
 def about():
     return render_template("about.html", title="About")
 
-@login_required
 @app.route("/privatelibrary/<post_id>")
+@login_required
 def moreinfo(post_id):
     print("POSTID")
     post = Post.query.filter(Post.id==post_id).first()
