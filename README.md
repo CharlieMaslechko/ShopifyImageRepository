@@ -52,6 +52,15 @@ I decided to use python as the primary language for this project for the followi
 
 ![](./Markdown/PostAndViewPrivate.gif)
 
+## Sharing Photos Publically with other Accounts
+
+### Features:
+
+* Uploaded images are able to be easily viewed through a carousel
+* A user is able to view publically shared posts from other accounts
+
+![](./Markdown/SharePosts.gif)
+
 ## Usage (Run locally)
 
 
