@@ -28,7 +28,7 @@ PIL
 
 ## Key Design Decisions
 
-I decided to use python as the primary language for this project for the following reasons: Python is great for building prototypes with it's abundunce of free to use frameworks and libraries, extremely flexible and efficient, performance and scalability were not a primary concern. To power the backend I decided to use Flask apposed to Django this decision was primariliy made on the bias of the developer having prior experience utilising flask however Django offers integrated ORM and data models that would have been sufficient for this project. Furthermore, heading into the project and given the quick iterations and timeline I was constantly making changes to the libraries I was using which favoured flasks flexibility. SQLAlchemy was an easy decision to make since it allows for the simple creation of database tables by creating models similar to that of Django.
+I decided to use Python as the primary language for this project for the following reasons: Python is great for building prototypes with it's abundunce of free to use frameworks and libraries, extreme flexibility, and provides amazing agility when performance and scalability are not a primary concern. To power the backend, I decided to use Flask apposed to Django this decision was primariliy made on the bias of the developer having prior experience utilising Flask however Django offers integrated ORM and data models that would have been sufficient for this project. Furthermore, heading into the project and given the quick iterations and timeline I was constantly making changes to the libraries I was using which favoured Flask's flexibility. SQLAlchemy was an easy decision to make since it allows for the simple creation of database tables by creating models similar to that of Django.
 
 # Demonstration
 
@@ -63,8 +63,7 @@ I decided to use python as the primary language for this project for the followi
 
 ## Usage (Run locally)
 
-
-In the project folder import db from package
+Navigate to the location of the project folder and import db from the imagerepository package
 
 ```bash
 from imagerepository import db
@@ -81,17 +80,26 @@ Create the database
 ```bash
 db.create_all()
 ```
+At this point a new file will be generated in the imagerepository package under the name site.db
 
 # How can I monitor the database?
-A free and awesome tool can be found [here](https://sqlitebrowser.org/)
+A free and awesome tool can be found [here](https://sqlitebrowser.org/). The last stable updated version was released on 2020-11-09. The github project can be found by following the link [here](https://github.com/sqlitebrowser/sqlitebrowser)
 
 
 # How to run the application?
-In order to run the web application navigate to the imagerepository package and run
+In order to run the web application locally navigate to the imagerepository package and run the following
 
 ```bash
 python application.py
 ```
+Next open up the your preffered web browser and paste in the link the is displayed in the python console. Most IDE's will make the link clickable which will open up the web application in the default browser selected by your operating system.
+
+```bash
+ * Debug mode: on
+ * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+ * Restarting with stat
+```
+
 # Project Status
 There are multiple features that I still want to add. Since this project is for a job application the development will likely concluded once the hiring period has ended. I have listed below a rough roadmap of features. The checkboxes indicates the developer's current focus.
 
