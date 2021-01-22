@@ -13,6 +13,8 @@ Many libraries were used to make this project come to life
 ```python
 Flask
 SQLAlchemy
+PIL
+UserMixin
 os
 flask_bcrypt
 flask_login
@@ -21,9 +23,7 @@ flask_wtf.file
 wtforms
 wtforms.validators
 datetime
-UserMixin
 secrets
-PIL
 ```
 
 # Key Design Decisions
