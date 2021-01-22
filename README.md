@@ -93,23 +93,22 @@ In order to run the web application navigate to the imagerepository package and 
 python application.py
 ```
 # Project Status
-There are multiple features that I still want to add. Since this project is for a job application the development will likely concluded once the hiring period has ended. I have listed below a rough roadmap of features.
+There are multiple features that I still want to add. Since this project is for a job application the development will likely concluded once the hiring period has ended. I have listed below a rough roadmap of features. The checkboxes indicates the developer's current focus.
 
-* Profile Viewing -[]
+* Profile Viewing - [ ]
   * In the public feed section add the ability for a user to view another individuals profile, their public information, and all their public posts
   * Privacy Settings
     * Add the ability for a user to adjust what is viewable to other users on the network including whether they want their email, photos, profile picture shared
-* Customizable tags -[]
+* Customizable tags - [ ]
   * Add the ability for the user to add custom tags to their photos and not be restricted by the presets
-* Front-end improvements -[]
+* Front-end improvements - [ ]
   * Improve visual of the bulletin board making the photos appear on sticky notes or something more visually appealing and immersive
-* Forgot password flow -[]
+* Forgot password flow - [ ]
   * Add the ability for a user to reset their password via the email that they signed up with in order to prevent being locked out of account
-* Photo features -[]
+* Photo features - [ ]
   * Add the ability for light photo editing including being able to select a specific 250x250 area the user wants to display
   * ability to apply simple filters to their images
-* Post editing -[]
+* Post editing - [ ]
   * Add the ability for a user to edit their post including the title, descrption and photo content
   * If this is a public post, indicate to other users that this post has been edited
-
 
