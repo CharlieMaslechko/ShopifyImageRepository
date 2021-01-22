@@ -1,11 +1,11 @@
 # Shopify Image Repository
-This is the technical portion of the application for Summer 2021 backend developer internship position at Shopify!
+This is the technical portion of the application for Summer 2021 backend developer internship position at Shopify! The web-based application allows for users to share their photos with other users and also maintain a private repository for their own access. Users are able to organize their photos in their private repositories by selecting tags, upload multiple images at once and even create a customizable profile!
 
 # Backend
 The backend is powered by Flask and Python
 
 # Frontend
-The frontend utilises HTML, CSS, JS, and Bootstrap
+The frontend utilises HTML, CSS, JS, and Bootstrap Templates
 
 # Libraries
 Many libraries were used to make this project come to life
@@ -26,11 +26,12 @@ secrets
 PIL
 ```
 
-## Key Design Decisions
+# Key Design Decisions
 
 I decided to use Python as the primary language for this project for the following reasons: Python is great for building prototypes with it's abundunce of free to use frameworks and libraries, extreme flexibility, and provides amazing agility when performance and scalability are not a primary concern. To power the backend, I decided to use Flask apposed to Django this decision was primariliy made on the bias of the developer having prior experience utilising Flask however Django offers integrated ORM and data models that would have been sufficient for this project. Furthermore, heading into the project and given the quick iterations and timeline I was constantly making changes to the libraries I was using which favoured Flask's flexibility. SQLAlchemy was an easy decision to make since it allows for the simple creation of database tables by creating models similar to that of Django.
 
 # Demonstration
+*All images used in the demonstration gifs were obtained from [Pexels](https://www.pexels.com/license/) (free to use without need for attribution)
 
 ## Creating an Account and Logging in
 
